@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_gray"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/logined"
+            style="@style/top_layout"
+            android:visibility="gone">
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:background="@drawable/circle_image"
+                android:src="@drawable/user_default_icon" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/unlogin"
+            style="@style/top_layout"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:text="@string/action_sign_in" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/wrap_layout">
+
+            <LinearLayout
+                android:id="@+id/userinf_btn"
+                style="@style/mid_layout">
+
+                <TextView
+                    style="@style/usertext"
+                    android:text="个人资料">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/setting_arrow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting"
+                style="@style/mid_layout">
+
+                <TextView
+                    style="@style/usertext"
+                    android:text="设置" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/setting_arrow" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/mid_layout">
+
+                <TextView
+                    style="@style/usertext"
+                    android:text="关于应用" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/setting_arrow" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

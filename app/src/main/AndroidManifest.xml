@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/label_login_activity" />
+        <activity
+            android:name=".SignupActivity"
+            android:label="@string/label_signup_activity" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:label="@string/label_user_info_activity" />
+        <activity
+            android:name=".EditInfoActivity"
+            android:label="@string/label_edit_user_info_activity" />
     </application>
 
 </manifest>
