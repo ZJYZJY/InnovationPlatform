@@ -14,9 +14,8 @@ import java.util.UUID;
 import static com.hdu.innovationplatform.utils.UserStatus.USER;
 
 /**
- * Created 2016/5/5.
- *
- * @author 郑家烨.
+ * com.hdu.innovationplatform.utils
+ * Created by 73958 on 2017/5/24.
  */
 public class TransForm {
 

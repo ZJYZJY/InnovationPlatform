@@ -1,15 +1,17 @@
 package com.hdu.innovationplatform;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.hdu.innovationplatform.Fragment.MineFragment;
+import com.hdu.innovationplatform.fragment.MineFragment;
 import com.hdu.innovationplatform.adapter.ViewPagerAdapter;
-import com.hdu.innovationplatform.helper.PermissionHelper;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
@@ -82,5 +84,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_right_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.edit_blog:
+                Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, EditBlogActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

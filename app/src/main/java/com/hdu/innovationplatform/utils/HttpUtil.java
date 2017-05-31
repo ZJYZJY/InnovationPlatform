@@ -1,5 +1,6 @@
 package com.hdu.innovationplatform.utils;
 
+import com.hdu.innovationplatform.model.Blog;
 import com.hdu.innovationplatform.model.User;
 
 import org.json.JSONException;
@@ -19,16 +20,17 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
- * com.zjy.trafficassist.utils
- * Created by 73958 on 2017/4/6.
+ * com.hdu.innovationplatform.utils
+ * Created by 73958 on 2017/5/24.
  */
 
 public class HttpUtil {
-    private static final String SERVER_IP = "120.27.130.203";
+    private static final String SERVER_IP = "www.hduhungrated.cn";
 
-    private static final String PORT = "8001";
+    private static final String PORT = "3000";
 
     private static final String PATH = "http://" + SERVER_IP + ":" + PORT + "/";
 
@@ -58,7 +60,7 @@ public class HttpUtil {
     public static int stateCode(String str){
         try {
             JSONObject json = new JSONObject(str);
-            return json.getInt("code");
+            return json.getInt("state");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -117,12 +119,30 @@ public class HttpUtil {
         @POST(APIPath.SIGN_UP)
         Call<ResponseBody> signUp(@Body User user);
 
+        /**
+         * 获取文章列表
+         * @param label 用户对象
+         */
+        //@Multipart
+        @POST(APIPath.BLOG_LIST)
+        Call<ResponseBody> getArticles(@Part String label);
+
+        /**
+         * 用户发表新博客接口
+         * @param blog 博客对象
+         */
+        @POST(APIPath.PUBLISH_BLOG)
+        Call<ResponseBody> publishBlog(@Body Blog blog);
     }
 
     private class APIPath{
         
-        private static final String LOGIN = "trafficassist/user/login.php";
+        private static final String LOGIN = "users/login";
 
-        private static final String SIGN_UP = "trafficassist/user/signup.php";
+        private static final String SIGN_UP = "users/reg";
+
+        private static final String BLOG_LIST = "show/show";
+
+        private static final String PUBLISH_BLOG = "blog/publish";
     }
 }

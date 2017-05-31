@@ -13,8 +13,8 @@ import static com.hdu.innovationplatform.utils.UserStatus.EDITOR;
 import static com.hdu.innovationplatform.utils.UserStatus.SP;
 
 /**
- * com.zjy.trafficassist.utils
- * Created by 73958 on 2017/3/22.
+ * com.hdu.innovationplatform.helper
+ * Created by 73958 on 2017/5/24.
  */
 
 public class LoginHelper {

@@ -20,6 +20,11 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 import static com.hdu.innovationplatform.utils.HttpUtil.SUCCESS;
 
+/**
+ * com.hdu.innovationplatform.utils
+ * Created by 73958 on 2017/5/24.
+ */
+
 public class LoginCheck {
 
     private User user;
@@ -84,6 +89,8 @@ public class LoginCheck {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if(mPDialog != null)
+                    mPDialog.dismiss();
                 Toast.makeText(context, "连接失败", Toast.LENGTH_SHORT).show();
             }
         });

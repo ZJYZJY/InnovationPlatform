@@ -12,8 +12,8 @@ import android.support.v4.content.ContextCompat;
 import com.hdu.innovationplatform.utils.LogUtil;
 
 /**
- * com.zjy.trafficassist.helper
- * Created by 73958 on 2017/4/6.
+ * com.hdu.innovationplatform.helper
+ * Created by 73958 on 2017/5/24.
  */
 
 public abstract class PermissionHelper {

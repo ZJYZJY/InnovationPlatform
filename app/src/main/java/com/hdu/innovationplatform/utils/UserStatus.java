@@ -8,8 +8,8 @@ import com.hdu.innovationplatform.model.User;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * com.hdu.feiniu_driver.utils
- * Created by 73958 on 2017/3/23.
+ * com.hdu.innovationplatform.utils
+ * Created by 73958 on 2017/5/24.
  */
 
 public class UserStatus {

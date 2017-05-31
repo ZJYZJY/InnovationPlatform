@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
-import com.hdu.innovationplatform.Fragment.MineFragment;
+import com.hdu.innovationplatform.fragment.MineFragment;
 
 import java.util.ArrayList;
 import java.util.List;

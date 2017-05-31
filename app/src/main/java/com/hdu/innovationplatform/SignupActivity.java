@@ -29,7 +29,6 @@ import static com.hdu.innovationplatform.utils.HttpUtil.SUCCESS;
 
 public class SignupActivity extends AppCompatActivity {
 
-//    private DatabaseManager DBManager;
     private User user;
 
     private CoordinatorLayout container;
@@ -58,7 +57,6 @@ public class SignupActivity extends AppCompatActivity {
                 attemptSignUp();
             }
         });
-//        DBManager = new DatabaseManager(this);
     }
 
     private void attemptSignUp(){
@@ -67,7 +65,6 @@ public class SignupActivity extends AppCompatActivity {
          * 初始化User对象
          */
         user = new User(new_username.getText().toString(), new_passname.getText().toString());
-        //MapActivity.USER = USER;
 
         boolean cancel = false;
         View focusView = null;
@@ -125,6 +122,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    mPDialog.dismiss();
                     Toast.makeText(SignupActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -132,7 +130,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean isUsernameValid(String username) {
-        return username.length() == 11;
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -144,7 +142,6 @@ public class SignupActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
                 finish();
                 break;
         }

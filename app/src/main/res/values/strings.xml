@@ -5,6 +5,7 @@
     <string name="label_signup_activity">注册</string>
     <string name="label_user_info_activity">个人资料</string>
     <string name="label_edit_user_info_activity">编辑</string>
+    <string name="label_edit_blog_activity">编辑博客</string>
     <string name="title_mine">我的</string>
 
     <!-- Strings related to login -->

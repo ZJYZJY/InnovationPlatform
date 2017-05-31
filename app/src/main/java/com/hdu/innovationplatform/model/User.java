@@ -4,14 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * com.hdu.feiniu_driver.model
- * Created by 73958 on 2017/3/23.
+ * com.hdu.innovationplatform.model
+ * Created by 73958 on 2017/5/24.
  */
 
 public class User {
 
     private String userIconPath;
     private Bitmap userIcon;
+    private String userId;
     private String username;
     private String password;
     private String name;
@@ -21,6 +22,11 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String password, String userId) {
+        this(username, password);
+        this.userId = userId;
     }
 
     public String getUserIconPath() {
@@ -33,6 +39,14 @@ public class User {
             //LogUtil.d(this.userIconPath);
             this.userIcon = BitmapFactory.decodeFile(userIconPath);
         }
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Bitmap getUserIcon() {

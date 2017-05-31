@@ -22,7 +22,6 @@ import com.hdu.innovationplatform.utils.LoginCheck;
 public class LoginActivity extends AppCompatActivity {
 
     private User user;
-//    private DatabaseManager DBManager;
 
     // UI references.
     private EditText mUsernameView;
@@ -131,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String username) {
-        return username.length() == 11;
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -143,7 +142,6 @@ public class LoginActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
                 finish();
                 break;
         }

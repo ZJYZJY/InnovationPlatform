@@ -1,4 +1,4 @@
-package com.hdu.innovationplatform.Fragment;
+package com.hdu.innovationplatform.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import com.hdu.innovationplatform.UserInfoActivity;
 import static com.hdu.innovationplatform.utils.UserStatus.LOGIN_STATUS;
 
 /**
- * com.hdu.feiniu_driver
- * Created by 73958 on 2017/3/23.
+ * com.hdu.innovationplatform.fragment
+ * Created by 73958 on 2017/5/24.
  */
 
 public class MineFragment extends Fragment implements View.OnClickListener {
