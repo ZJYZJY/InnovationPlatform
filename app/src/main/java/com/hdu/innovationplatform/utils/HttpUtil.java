@@ -19,8 +19,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Streaming;
 
 /**
  * com.hdu.innovationplatform.utils
@@ -28,9 +30,14 @@ import retrofit2.http.Part;
  */
 
 public class HttpUtil {
-    private static final String SERVER_IP = "www.hduhungrated.cn";
+//    private static final String SERVER_IP = "www.hduhungrated.cn";
+    private static final String SERVER_IP = "192.168.31.144";
 
     private static final String PORT = "3000";
+
+//    private static final String SERVER_IP = "120.27.130.203";
+//
+//    private static final String PORT = "8001";
 
     private static final String PATH = "http://" + SERVER_IP + ":" + PORT + "/";
 
@@ -123,9 +130,8 @@ public class HttpUtil {
          * 获取文章列表
          * @param label 用户对象
          */
-        //@Multipart
         @POST(APIPath.BLOG_LIST)
-        Call<ResponseBody> getArticles(@Part String label);
+        Call<ResponseBody> getBlogs(@Body RequestBody label);
 
         /**
          * 用户发表新博客接口
@@ -140,6 +146,10 @@ public class HttpUtil {
         private static final String LOGIN = "users/login";
 
         private static final String SIGN_UP = "users/reg";
+
+//        private static final String LOGIN = "trafficassist/user/login.php";
+//
+//        private static final String SIGN_UP = "trafficassist/user/signup.php";
 
         private static final String BLOG_LIST = "show/show";
 

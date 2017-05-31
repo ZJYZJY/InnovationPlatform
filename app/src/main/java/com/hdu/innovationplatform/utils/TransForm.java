@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.hdu.innovationplatform.model.Blog;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -48,6 +52,29 @@ public class TransForm {
         }
     }
 
+    public static ArrayList<Blog> parseBlog(String res){
+        if (res != null){
+            ArrayList<Blog> blogs = new ArrayList<>();
+            try {
+                JSONArray array = new JSONArray(res);
+                for(int i = 0; i < array.length(); i++){
+                    JSONObject json = array.getJSONObject(i);
+                    String author = json.getString("Author");
+                    String label = json.getString("Label");
+                    String title = json.getString("Title");
+                    String content = json.getString("Content");
+
+                    Blog blog = new Blog(title, label, author, content);
+                    blogs.add(blog);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return blogs;
+        }
+        return null;
+    }
+
     /**
      * 用当前系统日期
      */
@@ -64,9 +91,5 @@ public class TransForm {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("HHmmss");
         return dateFormat.format(date);
-    }
-
-    public static String uuid(){
-        return UUID.randomUUID().toString();
     }
 }

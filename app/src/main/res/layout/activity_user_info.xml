@@ -97,16 +97,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/exit_login"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:background="@drawable/accent_btn"
-        android:text="退出登录"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.hdu.innovationplatform;
+package com.hdu.innovationplatform.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.hdu.innovationplatform.R;
 import com.hdu.innovationplatform.model.User;
 import com.hdu.innovationplatform.utils.HttpUtil;
 import com.hdu.innovationplatform.utils.LogUtil;

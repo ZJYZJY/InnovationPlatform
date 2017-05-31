@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_discover"
+        android:id="@+id/navigation_blog_list"
         android:icon="@drawable/ic_bottom_mine"
-        android:title="@string/title_mine" />
+        android:title="@string/title_blog_list" />
 
     <item
         android:id="@+id/navigation_order"

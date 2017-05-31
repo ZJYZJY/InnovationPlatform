@@ -18,10 +18,6 @@ public class UserStatus {
 
     public static User USER;
 
-    public static final String SUCCESS = "200";
-
-    public static final String FAIL = "400";
-
     public static SharedPreferences SP;
 
     public static SharedPreferences.Editor EDITOR;

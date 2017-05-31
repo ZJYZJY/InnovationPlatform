@@ -1,4 +1,4 @@
-package com.hdu.innovationplatform;
+package com.hdu.innovationplatform.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.hdu.innovationplatform.R;
+import com.hdu.innovationplatform.helper.LoginHelper;
+import com.hdu.innovationplatform.listener.LoginStatusChangedListener;
+import com.hdu.innovationplatform.utils.LoginCheck;
 import com.hdu.innovationplatform.utils.UserStatus;
 
 import static com.hdu.innovationplatform.utils.UserStatus.USER;
@@ -18,7 +22,6 @@ import static com.hdu.innovationplatform.utils.UserStatus.USER;
 public class UserInfoActivity extends AppCompatActivity {
 
     private TextView editname, editage, editsex, editcartype, editcarnum;
-    private Button exit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,17 +34,6 @@ public class UserInfoActivity extends AppCompatActivity {
         editsex = (TextView) findViewById(R.id.edit_sex);
         editcartype = (TextView) findViewById(R.id.edit_cartype);
         editcarnum = (TextView) findViewById(R.id.edit_carnum);
-
-        exit = (Button) findViewById(R.id.exit_login);
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserStatus.ClearUserLoginStatus(UserInfoActivity.this);
-                finish();
-            }
-        });
-
-//        updateData();
 
         syncUserInfo();
     }
@@ -66,10 +58,8 @@ public class UserInfoActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()){
             case R.id.action_edit:
                 Intent intent = new Intent(UserInfoActivity.this,EditInfoActivity.class);
@@ -78,7 +68,6 @@ public class UserInfoActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }

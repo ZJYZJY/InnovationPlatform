@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hdu.innovationplatform.EditBlogActivity">
+    tools:context="com.hdu.innovationplatform.activity.EditBlogActivity">
 
     <Spinner
         android:id="@+id/blog_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:spinnerMode="dialog"></Spinner>
+        android:spinnerMode="dialog"/>
+
     <EditText
         android:id="@+id/blog_title"
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
         android:background="@drawable/edit_text_style"
         android:layout_margin="5dp"
         android:maxLines="1"
-        android:padding="4dp"
+        android:padding="8dp"
         android:hint="输入标题" />
 
     <View
@@ -27,14 +28,14 @@
         android:layout_height="1dp"
         android:background="@color/border_color"/>
 
-
     <EditText
         android:id="@+id/blog_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="top|left"
         android:background="@drawable/edit_text_style"
         android:layout_margin="5dp"
-        android:padding="4dp"
+        android:padding="8dp"
         android:hint="输入正文"/>
 
 </LinearLayout>

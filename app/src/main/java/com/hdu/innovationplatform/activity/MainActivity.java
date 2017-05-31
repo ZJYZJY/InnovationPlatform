@@ -1,4 +1,4 @@
-package com.hdu.innovationplatform;
+package com.hdu.innovationplatform.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,10 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.hdu.innovationplatform.R;
+import com.hdu.innovationplatform.fragment.BlogListFragment;
 import com.hdu.innovationplatform.fragment.MineFragment;
 import com.hdu.innovationplatform.adapter.ViewPagerAdapter;
+import com.hdu.innovationplatform.helper.LoginHelper;
+import com.hdu.innovationplatform.listener.LoginStatusChangedListener;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+import static com.hdu.innovationplatform.utils.UserStatus.LOGIN_STATUS;
+import static com.hdu.innovationplatform.utils.UserStatus.USER;
+
+public class MainActivity extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener,
+        ViewPager.OnPageChangeListener, LoginStatusChangedListener {
 
     private MenuItem menuItem;
     private BottomNavigationView navigation;
@@ -33,22 +42,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         viewPager.setOffscreenPageLimit(2);
 
         initViewPager(viewPager);
+        // 自动登录
+        LoginHelper.getInstance().login(getApplicationContext(), this);
     }
 
     private void initViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
 
-        adapter.addFragment(new MineFragment());
+        adapter.addFragment(new BlogListFragment());
         adapter.addFragment(new MineFragment());
         adapter.addFragment(new MineFragment());
 
         viewPager.setAdapter(adapter);
     }
 
+    public void startLoginActivity() {
+        LoginActivity.setOnLoginStatusChanged(this);
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.navigation_discover:
+            case R.id.navigation_blog_list:
                 adapter.update(0);
                 viewPager.setCurrentItem(0);
                 return true;
@@ -86,6 +102,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
+    /**
+     * 登录状态监听
+     *
+     * @param loginStatus 用户登录状态
+     */
+    @Override
+    public void onLoginStatusChanged(boolean loginStatus) {
+        adapter.update(0);
+        adapter.update(1);
+        adapter.update(2);
+        if (USER != null && loginStatus) {
+            Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "注销成功", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_right_menu, menu);
@@ -94,10 +127,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.edit_blog:
-                Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, EditBlogActivity.class));
+                if (LOGIN_STATUS) {
+                    startActivity(new Intent(MainActivity.this, EditBlogActivity.class));
+                } else {
+                    Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+                    startLoginActivity();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

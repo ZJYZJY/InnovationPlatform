@@ -13,6 +13,13 @@ public class Blog {
     private String author;
     private String content;
 
+    public Blog(String title, String label, String author, String content) {
+        this.title = title;
+        this.label = label;
+        this.author = author;
+        this.content = content;
+    }
+
     public Blog(String userId, String title, String label, String author, String content) {
         this.userId = userId;
         this.title = title;

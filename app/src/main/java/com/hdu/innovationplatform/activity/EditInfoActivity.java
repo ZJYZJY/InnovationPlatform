@@ -1,4 +1,4 @@
-package com.hdu.innovationplatform;
+package com.hdu.innovationplatform.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+
+import com.hdu.innovationplatform.R;
 
 public class EditInfoActivity extends AppCompatActivity {
 

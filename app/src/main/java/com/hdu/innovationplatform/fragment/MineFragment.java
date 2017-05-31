@@ -11,26 +11,29 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.hdu.innovationplatform.LoginActivity;
+import com.hdu.innovationplatform.activity.LoginActivity;
 import com.hdu.innovationplatform.R;
-import com.hdu.innovationplatform.UserInfoActivity;
+import com.hdu.innovationplatform.activity.UserInfoActivity;
+import com.hdu.innovationplatform.helper.LoginHelper;
+import com.hdu.innovationplatform.listener.LoginStatusChangedListener;
 
 import static com.hdu.innovationplatform.utils.UserStatus.LOGIN_STATUS;
+import static com.hdu.innovationplatform.utils.UserStatus.USER;
 
 /**
  * com.hdu.innovationplatform.fragment
  * Created by 73958 on 2017/5/24.
  */
 
-public class MineFragment extends Fragment implements View.OnClickListener {
+public class MineFragment extends Fragment implements View.OnClickListener, LoginStatusChangedListener {
 
-    private LinearLayout userInfor;
+    private LinearLayout userInfo;
     private LinearLayout setting;
 
     private LinearLayout logined;
     private LinearLayout unlogin;
 
-    private Button btn;
+    private Button btn, exit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +46,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
 
         btn = (Button) view.findViewById(R.id.login_btn);
-        userInfor = (LinearLayout) view.findViewById(R.id.userinf_btn);
+        exit = (Button) view.findViewById(R.id.exit_login);
+        userInfo = (LinearLayout) view.findViewById(R.id.userinfo_btn);
         setting = (LinearLayout) view.findViewById(R.id.setting);
         logined = (LinearLayout) view.findViewById(R.id.logined);
         unlogin = (LinearLayout) view.findViewById(R.id.unlogin);
@@ -60,33 +64,49 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        userInfor.setOnClickListener(this);
+        userInfo.setOnClickListener(this);
         setting.setOnClickListener(this);
         btn.setOnClickListener(this);
+        exit.setOnClickListener(this);
+    }
+
+    public void startLoginActivity() {
+        LoginActivity.setOnLoginStatusChanged(this);
+        startActivity(new Intent(getContext(), LoginActivity.class));
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.userinf_btn:
+            case R.id.userinfo_btn:
                 if(LOGIN_STATUS)
                     startActivity(new Intent(getContext(), UserInfoActivity.class));
-                else
+                else{
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+                    startLoginActivity();
+                }
                 break;
             case R.id.login_btn:
-                startActivity(new Intent(getContext(), LoginActivity.class));
+                startLoginActivity();
                 break;
             case R.id.setting:
 
+                break;
+            case R.id.exit_login:
+                LoginHelper.getInstance().logout(getContext(), this);
                 break;
         }
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onLoginStatusChanged(boolean loginStatus) {
         logined.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
+        exit.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
         unlogin.setVisibility(LOGIN_STATUS ? View.GONE : View.VISIBLE);
+        if (USER != null && loginStatus) {
+            Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "注销成功", Toast.LENGTH_SHORT).show();
+        }
     }
 }
