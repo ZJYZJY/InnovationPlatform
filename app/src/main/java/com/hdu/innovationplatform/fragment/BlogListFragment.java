@@ -1,5 +1,6 @@
 package com.hdu.innovationplatform.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hdu.innovationplatform.R;
+import com.hdu.innovationplatform.activity.BlogDisplayActivity;
 import com.hdu.innovationplatform.adapter.BlogListAdapter;
 import com.hdu.innovationplatform.helper.RecycleViewDivider;
 import com.hdu.innovationplatform.listener.RecyclerItemClickListener;
@@ -96,7 +98,9 @@ public class BlogListFragment extends Fragment
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getContext(), "点击了" + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), BlogDisplayActivity.class);
+        intent.putExtra("blog", blogs.get(position));
+        startActivity(intent);
     }
 
     @Override

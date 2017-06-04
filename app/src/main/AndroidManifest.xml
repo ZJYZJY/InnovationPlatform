@@ -33,6 +33,9 @@
         <activity
             android:name=".activity.EditBlogActivity"
             android:label="@string/label_edit_blog_activity" />
+        <activity
+            android:name=".activity.BlogDisplayActivity"
+            android:label="@string/label_display_blog_activity" />
     </application>
 
 </manifest>

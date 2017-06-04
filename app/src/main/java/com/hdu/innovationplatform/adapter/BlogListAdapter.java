@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hdu.innovationplatform.R;
 import com.hdu.innovationplatform.listener.RecyclerItemClickListener;
 import com.hdu.innovationplatform.model.Blog;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,8 @@ public class BlogListAdapter extends RecyclerView.Adapter<BlogListAdapter.ViewHo
         holder.author.setText(blogs.get(position).getAuthor());
         holder.label.setText(blogs.get(position).getLabel());
         holder.title.setText(blogs.get(position).getTitle());
-        holder.content.setText(blogs.get(position).getContent());
+        // 设置为Html格式
+        RichText.fromHtml(blogs.get(position).getContent()).into(holder.content);
     }
 
     @Override

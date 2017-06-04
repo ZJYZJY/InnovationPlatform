@@ -6,6 +6,7 @@
     <string name="label_user_info_activity">个人资料</string>
     <string name="label_edit_user_info_activity">编辑</string>
     <string name="label_edit_blog_activity">编辑博客</string>
+    <string name="label_display_blog_activity">博客</string>
 
     <string name="title_blog_list">文章</string>
     <string name="title_blog">文章</string>

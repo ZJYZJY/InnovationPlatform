@@ -6,6 +6,7 @@
 
     <color name="text_color">#333</color>
     <color name="border_color">#ccc</color>
+    <color name="icon_color">#a4a4a4</color>
     <color name="white">#fff</color>
     <color name="blue">#419DE4</color>
 
