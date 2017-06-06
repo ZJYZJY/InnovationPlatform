@@ -3,6 +3,8 @@ package com.hdu.innovationplatform.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * com.hdu.innovationplatform.model
  * Created by 73958 on 2017/5/25.
@@ -10,37 +12,37 @@ import android.os.Parcelable;
 
 public class Blog implements Parcelable {
 
+    private String id;
     private String userId;
     private String title;
     private String label;
     private String author;
     private String content;
+    private ArrayList<Comment> comments;
 
-    public static final Parcelable.Creator<Blog> CREATOR = new Parcelable.Creator<Blog>() {
-        @Override
-        public Blog createFromParcel(Parcel source) {
-            return new Blog(source);
-        }
-
-        @Override
-        public Blog[] newArray(int size) {
-            return new Blog[size];
-        }
-    };
-
-    public Blog(String title, String label, String author, String content) {
+    public Blog(String id, String title, String label, String author, String content) {
+        this.id = id;
         this.title = title;
         this.label = label;
         this.author = author;
         this.content = content;
     }
 
-    public Blog(String userId, String title, String label, String author, String content) {
+    public Blog(String userId, String id, String title, String label, String author, String content) {
         this.userId = userId;
+        this.id = id;
         this.title = title;
         this.label = label;
         this.author = author;
         this.content = content;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -57,6 +59,14 @@ public class Blog implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getLabel() {
@@ -90,18 +100,35 @@ public class Blog implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.userId);
         dest.writeString(this.title);
         dest.writeString(this.label);
         dest.writeString(this.author);
         dest.writeString(this.content);
+        dest.writeList(this.comments);
     }
 
     protected Blog(Parcel in) {
+        this.id = in.readString();
         this.userId = in.readString();
         this.title = in.readString();
         this.label = in.readString();
         this.author = in.readString();
         this.content = in.readString();
+        this.comments = new ArrayList<Comment>();
+        in.readList(this.comments, Comment.class.getClassLoader());
     }
+
+    public static final Creator<Blog> CREATOR = new Creator<Blog>() {
+        @Override
+        public Blog createFromParcel(Parcel source) {
+            return new Blog(source);
+        }
+
+        @Override
+        public Blog[] newArray(int size) {
+            return new Blog[size];
+        }
+    };
 }

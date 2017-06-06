@@ -1,6 +1,7 @@
 package com.hdu.innovationplatform.utils;
 
 import com.hdu.innovationplatform.model.Blog;
+import com.hdu.innovationplatform.model.Comment;
 import com.hdu.innovationplatform.model.User;
 
 import org.json.JSONException;
@@ -19,7 +20,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * com.hdu.innovationplatform.utils
@@ -131,6 +134,27 @@ public class HttpUtil {
          */
         @POST(APIPath.PUBLISH_BLOG)
         Call<ResponseBody> publishBlog(@Body Blog blog);
+
+        /**
+         * 用户发表评论接口
+         * @param comment 评论
+         */
+        @POST(APIPath.SEND_COMMENT)
+        Call<ResponseBody> sendComment(@Body RequestBody comment);
+
+        /**
+         * 获取评论列表
+         * @param id 博客的id
+         */
+        @POST(APIPath.COMMENT_LIST)
+        Call<ResponseBody> getComments(@Body RequestBody id);
+
+        /**
+         * 修改用户信息
+         * @param info 用户的信息
+         */
+        @POST(APIPath.MODIFY_USER_INFO)
+        Call<ResponseBody> modifyUserInfo(@Body RequestBody info);
     }
 
     private class APIPath{
@@ -142,5 +166,11 @@ public class HttpUtil {
         private static final String BLOG_LIST = "show/show";
 
         private static final String PUBLISH_BLOG = "blog/publish";
+
+        private static final String SEND_COMMENT = "comment/save_comment";
+
+        private static final String COMMENT_LIST = "comment/get_comment";
+
+        private static final String MODIFY_USER_INFO = "users/save_information";
     }
 }

@@ -21,6 +21,7 @@ import com.hdu.innovationplatform.adapter.BlogListAdapter;
 import com.hdu.innovationplatform.helper.RecycleViewDivider;
 import com.hdu.innovationplatform.listener.RecyclerItemClickListener;
 import com.hdu.innovationplatform.model.Blog;
+import com.hdu.innovationplatform.model.Comment;
 import com.hdu.innovationplatform.utils.HttpUtil;
 import com.hdu.innovationplatform.utils.LogUtil;
 import com.hdu.innovationplatform.utils.TransForm;
@@ -124,7 +125,7 @@ public class BlogListFragment extends Fragment
                         blogAdapter = new BlogListAdapter(getContext(), blogs);
                         blogAdapter.setOnRecyclerItemClickListener(BlogListFragment.this);
                         blogList.setAdapter(blogAdapter);
-                        blogAdapter.notifyDataSetChanged();
+                        getComments(blogs);
                     }else{
                         Toast.makeText(getContext(), "获取博客列表失败", Toast.LENGTH_SHORT).show();
                     }
@@ -139,6 +140,39 @@ public class BlogListFragment extends Fragment
                 Toast.makeText(getContext(), "连接失败", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void getComments(ArrayList<Blog> blogs){
+        for(final Blog blog : blogs){
+            String articleId = "{\"Article_Id\":\"" + blog.getId() + "\"}";
+            RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), articleId);
+            HttpUtil.create().getComments(requestBody).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String res = response.body().string();
+                        if(res != null){
+                            ArrayList<Comment> comments = TransForm.parseComment(res);
+                            if(comments.size() > 0){
+                                blog.setComments(comments);
+                            }
+                        }else{
+//                        Toast.makeText(getContext(), "获取评论列表失败", Toast.LENGTH_SHORT).show();
+                            LogUtil.e("获取评论列表失败");
+                        }
+                        blogAdapter.notifyDataSetChanged();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    blogAdapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "连接失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     @Override

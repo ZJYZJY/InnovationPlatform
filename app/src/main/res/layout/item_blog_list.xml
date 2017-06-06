@@ -82,24 +82,28 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/blog_list_collect"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_collect"
                 android:background="@android:color/transparent"/>
 
             <TextView
+                android:id="@+id/blog_list_collect_num"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="0"/>
 
             <ImageButton
+                android:id="@+id/blog_list_comment"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_comment"
                 android:background="@android:color/transparent"/>
 
             <TextView
+                android:id="@+id/blog_list_comment_num"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:gravity="center"

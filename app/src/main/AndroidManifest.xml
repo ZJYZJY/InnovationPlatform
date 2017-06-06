@@ -26,9 +26,10 @@
             android:label="@string/label_signup_activity" />
         <activity
             android:name=".activity.UserInfoActivity"
-            android:label="@string/label_user_info_activity" />
+            android:label="@string/label_user_info_activity"
+            android:theme="@style/AppTheme_NoTopBar" />
         <activity
-            android:name=".activity.EditInfoActivity"
+            android:name=".activity.EditUserInfo"
             android:label="@string/label_edit_user_info_activity" />
         <activity
             android:name=".activity.EditBlogActivity"
@@ -36,6 +37,9 @@
         <activity
             android:name=".activity.BlogDisplayActivity"
             android:label="@string/label_display_blog_activity" />
+        <activity
+            android:name=".activity.CommentsActivity"
+            android:label="@string/label_list_comment" />
     </application>
 
 </manifest>
