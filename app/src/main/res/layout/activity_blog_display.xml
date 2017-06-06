@@ -48,9 +48,11 @@
                     android:layout_marginStart="15dp"
                     android:layout_toEndOf="@+id/display_blog_user_icon"
                     android:text="作者"
+                    android:textAlignment="center"
                     android:textSize="12sp" />
 
-                <Button
+                <CheckedTextView
+                    android:id="@+id/follow"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="40dp"
                     android:layout_height="25dp"
@@ -61,6 +63,8 @@
                     android:onClick="onFollow"
                     android:padding="0dp"
                     android:text="关注"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color"
                     android:textSize="12sp" />
             </RelativeLayout>
 

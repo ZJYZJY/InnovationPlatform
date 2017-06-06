@@ -3,6 +3,8 @@ package com.hdu.innovationplatform.model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.util.ArrayList;
+
 /**
  * com.hdu.innovationplatform.model
  * Created by 73958 on 2017/5/24.
@@ -19,11 +21,13 @@ public class User {
     private String name;
     private String sex;
     private int school_num;
+    private ArrayList<String> followed_id;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.name = username;
+        this.followed_id = new ArrayList<>();
     }
 
     public User(String username, String password, String userId) {
@@ -97,5 +101,13 @@ public class User {
 
     public void setSchool_num(int school_num) {
         this.school_num = school_num;
+    }
+
+    public ArrayList<String> getFollowed_id() {
+        return followed_id;
+    }
+
+    public void setFollowed_id(ArrayList<String> followed_id) {
+        this.followed_id = followed_id;
     }
 }

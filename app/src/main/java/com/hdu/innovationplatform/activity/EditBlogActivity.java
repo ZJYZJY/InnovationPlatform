@@ -61,9 +61,8 @@ public class EditBlogActivity extends AppCompatActivity {
             HttpUtil.create().publishBlog(blog).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    String res = null;
                     try {
-                        res = response.body().string();
+                        String res = response.body().string();
                         if(HttpUtil.stateCode(res) == SUCCESS){
                             Toast.makeText(EditBlogActivity.this, "发表成功", Toast.LENGTH_SHORT).show();
                             finish();

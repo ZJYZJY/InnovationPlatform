@@ -95,7 +95,7 @@ public class BlogListAdapter extends RecyclerView.Adapter<BlogListAdapter.ViewHo
         public void onClick(View v) {
             if (v == comment) {
                 Intent intent = new Intent(mContext, CommentsActivity.class);
-                intent.putExtra("article_id", blogs.get(getLayoutPosition()).getId());
+                intent.putExtra("article_id", blogs.get(getLayoutPosition()).getArticleId());
                 mContext.startActivity(intent);
             } else if (v == collect) {
                 LogUtil.d("collect");

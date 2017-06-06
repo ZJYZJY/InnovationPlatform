@@ -56,7 +56,7 @@ public class BlogListFragment extends Fragment
     private String label;
     private ArrayAdapter<String> adapter;
     private BlogListAdapter blogAdapter;
-    private ArrayList<Blog> blogs;
+    private ArrayList<Blog> blogs = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,10 +116,9 @@ public class BlogListFragment extends Fragment
         HttpUtil.create().getBlogs(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String res = null;
                 refreshLayout.setRefreshing(false);
                 try {
-                    res = response.body().string();
+                    String res = response.body().string();
                     if(res != null){
                         blogs = TransForm.parseBlog(res);
                         blogAdapter = new BlogListAdapter(getContext(), blogs);
@@ -144,7 +143,7 @@ public class BlogListFragment extends Fragment
 
     public void getComments(ArrayList<Blog> blogs){
         for(final Blog blog : blogs){
-            String articleId = "{\"Article_Id\":\"" + blog.getId() + "\"}";
+            String articleId = "{\"Article_Id\":\"" + blog.getArticleId() + "\"}";
             RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), articleId);
             HttpUtil.create().getComments(requestBody).enqueue(new Callback<ResponseBody>() {
                 @Override

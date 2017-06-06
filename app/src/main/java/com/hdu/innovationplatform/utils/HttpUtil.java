@@ -155,6 +155,20 @@ public class HttpUtil {
          */
         @POST(APIPath.MODIFY_USER_INFO)
         Call<ResponseBody> modifyUserInfo(@Body RequestBody info);
+
+        /**
+         * 关注操作
+         * @param info 关注信息
+         */
+        @POST(APIPath.FOLLOW_AUTHOR)
+        Call<ResponseBody> followAuthor(@Body RequestBody info);
+
+        /**
+         * 获取关注作者的文章列表
+         * @param userId 用户id
+         */
+        @POST(APIPath.FOLLOWED_BLOG_LIST)
+        Call<ResponseBody> getFollowedBlogs(@Body RequestBody userId);
     }
 
     private class APIPath{
@@ -172,5 +186,9 @@ public class HttpUtil {
         private static final String COMMENT_LIST = "comment/get_comment";
 
         private static final String MODIFY_USER_INFO = "users/save_information";
+
+        private static final String FOLLOW_AUTHOR = "concern/save_concern";
+
+        private static final String FOLLOWED_BLOG_LIST = "concern/get_concern";
     }
 }

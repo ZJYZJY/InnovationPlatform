@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hdu.innovationplatform.R;
@@ -35,25 +36,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hdu.innovationplatform.utils.UserStatus.LOGIN_STATUS;
+import static com.hdu.innovationplatform.utils.UserStatus.USER;
+
 /**
  * com.hdu.innovationplatform.fragment
  * Created by 73958 on 2017/5/31.
  */
 
 public class FollowFragment extends Fragment
-        implements SwipeRefreshLayout.OnRefreshListener, RecyclerItemClickListener,
-        AdapterView.OnItemSelectedListener {
+        implements SwipeRefreshLayout.OnRefreshListener, RecyclerItemClickListener {
 
 
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView blogList;
+    private TextView login_first;
     private Spinner tag;
 
     private static final String[] mLabel = {"全部文章","综合","Linux","前端","后端","IOS","算法","杂谈"};
-    private String label;
-    private ArrayAdapter<String> adapter;
+    private String userId;
     private BlogListAdapter blogAdapter;
-    private ArrayList<Blog> blogs;
+    private ArrayList<Blog> blogs = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,25 +66,20 @@ public class FollowFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_blog_list, container, false);
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_blog_list);
-        blogList = (RecyclerView) view.findViewById(R.id.rv_blog_list);
+        View view = inflater.inflate(R.layout.fragment_followed_blog_list, container, false);
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.srl_followed_blog_list);
+        blogList = (RecyclerView) view.findViewById(R.id.rv_followed_blog_list);
+        login_first = (TextView) view.findViewById(R.id.login_first);
         blogList.addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.HORIZONTAL));
 
-        tag = (Spinner) view.findViewById(R.id.blog_list_label);
-        tag.setOnItemSelectedListener(this);
-        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mLabel);
-        //设置下拉列表的风格
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tag.setAdapter(adapter);
         return view;
     }
 
     public void update(){
-        blogAdapter = new BlogListAdapter(getContext(), blogs);
-        blogAdapter.setOnRecyclerItemClickListener(this);
-        blogList.setAdapter(blogAdapter);
-        blogAdapter.notifyDataSetChanged();
+        login_first.setVisibility(LOGIN_STATUS ? View.GONE : View.VISIBLE);
+        refreshLayout.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
+        if(USER != null)
+            Refresh();
     }
 
     @Override
@@ -89,9 +87,6 @@ public class FollowFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         refreshLayout.setOnRefreshListener(this);
         blogList.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        label = tag.getSelectedItemPosition() == 0 ? "all" : mLabel[tag.getSelectedItemPosition()];
-        Refresh();
     }
 
     @Override
@@ -103,22 +98,21 @@ public class FollowFragment extends Fragment
 
     @Override
     public void onRefresh() {
-        label = tag.getSelectedItemPosition() == 0 ? "all" : mLabel[tag.getSelectedItemPosition()];
-        Refresh();
+        if(USER != null)
+            Refresh();
     }
 
     public void Refresh(){
-        label = "{\"label\":\"" + label + "\"}";
-        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), label);
-        HttpUtil.create().getBlogs(requestBody).enqueue(new Callback<ResponseBody>() {
+        userId = "{\"concern_id\":\"" + USER.getUserId() + "\"}";
+        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), userId);
+        HttpUtil.create().getFollowedBlogs(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String res = null;
                 refreshLayout.setRefreshing(false);
                 try {
-                    res = response.body().string();
+                    String res = response.body().string();
                     if(res != null){
-                        blogs = TransForm.parseBlog(res);
+                        blogs = TransForm.parseFollowedBlog(res);
                         blogAdapter = new BlogListAdapter(getContext(), blogs);
                         blogAdapter.setOnRecyclerItemClickListener(FollowFragment.this);
                         blogList.setAdapter(blogAdapter);
@@ -141,7 +135,7 @@ public class FollowFragment extends Fragment
 
     public void getComments(ArrayList<Blog> blogs){
         for(final Blog blog : blogs){
-            String articleId = "{\"Article_Id\":\"" + blog.getId() + "\"}";
+            String articleId = "{\"Article_Id\":\"" + blog.getArticleId() + "\"}";
             RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), articleId);
             HttpUtil.create().getComments(requestBody).enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -170,16 +164,5 @@ public class FollowFragment extends Fragment
                 }
             });
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        label = position == 0 ? "all" : mLabel[position];
-        Refresh();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

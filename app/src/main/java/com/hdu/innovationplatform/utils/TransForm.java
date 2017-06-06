@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
 import static com.hdu.innovationplatform.utils.UserStatus.USER;
 
@@ -56,12 +55,13 @@ public class TransForm {
                 for(int i = 0; i < array.length(); i++){
                     JSONObject json = array.getJSONObject(i);
                     String id = json.getString("Id");
+                    String author_id = json.getString("Author_Id");
                     String author = json.getString("Author");
                     String label = json.getString("Label");
                     String title = json.getString("Title");
                     String content = json.getString("Content");
 
-                    Blog blog = new Blog(id, title, label, author, content);
+                    Blog blog = new Blog(id, author_id, title, label, author, content);
                     blogs.add(blog);
                 }
             } catch (JSONException e) {
@@ -93,6 +93,34 @@ public class TransForm {
                 e.printStackTrace();
             }
             return comments;
+        }
+        return null;
+    }
+
+    public static ArrayList<Blog> parseFollowedBlog(String res){
+        if (res != null){
+            ArrayList<Blog> blogs = new ArrayList<>();
+            ArrayList<String> authorId = new ArrayList<>();
+            try {
+                JSONArray array = new JSONArray(res);
+                for(int i = 0; i < array.length(); i++){
+                    JSONObject json = array.getJSONObject(i);
+                    String id = json.getString("Id");
+                    String author_id = json.getString("Author_Id");
+                    String author = json.getString("Author");
+                    String label = json.getString("Label");
+                    String title = json.getString("Title");
+                    String content = json.getString("Content");
+
+                    authorId.add(author_id);
+                    Blog blog = new Blog(id, author_id, title, label, author, content);
+                    blogs.add(blog);
+                }
+                USER.setFollowed_id(authorId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return blogs;
         }
         return null;
     }

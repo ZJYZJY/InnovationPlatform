@@ -12,45 +12,45 @@ import java.util.ArrayList;
 
 public class Blog implements Parcelable {
 
-    private String id;
-    private String userId;
+    private String articleId;
+    private String user_id;
     private String title;
     private String label;
     private String author;
     private String content;
     private ArrayList<Comment> comments;
 
-    public Blog(String id, String title, String label, String author, String content) {
-        this.id = id;
+    public Blog(String user_id, String title, String label, String author, String content) {
+        this.user_id = user_id;
         this.title = title;
         this.label = label;
         this.author = author;
         this.content = content;
     }
 
-    public Blog(String userId, String id, String title, String label, String author, String content) {
-        this.userId = userId;
-        this.id = id;
+    public Blog(String articleId, String user_id, String title, String label, String author, String content) {
+        this.articleId = articleId;
+        this.user_id = user_id;
         this.title = title;
         this.label = label;
         this.author = author;
         this.content = content;
     }
 
-    public String getId() {
-        return id;
+    public String getArticleId() {
+        return articleId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getTitle() {
@@ -100,8 +100,8 @@ public class Blog implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.userId);
+        dest.writeString(this.articleId);
+        dest.writeString(this.user_id);
         dest.writeString(this.title);
         dest.writeString(this.label);
         dest.writeString(this.author);
@@ -110,8 +110,8 @@ public class Blog implements Parcelable {
     }
 
     protected Blog(Parcel in) {
-        this.id = in.readString();
-        this.userId = in.readString();
+        this.articleId = in.readString();
+        this.user_id = in.readString();
         this.title = in.readString();
         this.label = in.readString();
         this.author = in.readString();
