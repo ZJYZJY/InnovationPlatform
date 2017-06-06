@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 
 import com.hdu.innovationplatform.fragment.BlogListFragment;
+import com.hdu.innovationplatform.fragment.FollowFragment;
 import com.hdu.innovationplatform.fragment.MineFragment;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                     ((BlogListFragment) fragment).update();
                     break;
                 case 1:
-                    ((MineFragment) fragment).update();
+                    ((FollowFragment) fragment).update();
                     break;
                 case 2:
                     ((MineFragment) fragment).update();

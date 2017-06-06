@@ -1,5 +1,7 @@
 package com.hdu.innovationplatform.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +31,7 @@ public class MineFragment extends Fragment implements View.OnClickListener, Logi
 
     private LinearLayout userInfo;
     private LinearLayout setting;
+    private LinearLayout about;
 
     private LinearLayout logined;
     private LinearLayout unlogin;
@@ -49,13 +52,15 @@ public class MineFragment extends Fragment implements View.OnClickListener, Logi
         exit = (Button) view.findViewById(R.id.exit_login);
         userInfo = (LinearLayout) view.findViewById(R.id.userinfo_btn);
         setting = (LinearLayout) view.findViewById(R.id.setting);
+        about = (LinearLayout) view.findViewById(R.id.about);
         logined = (LinearLayout) view.findViewById(R.id.logined);
         unlogin = (LinearLayout) view.findViewById(R.id.unlogin);
 
         return view;
     }
 
-    public void update(){
+    public void update() {
+        exit.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
         logined.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
         unlogin.setVisibility(LOGIN_STATUS ? View.GONE : View.VISIBLE);
     }
@@ -66,6 +71,7 @@ public class MineFragment extends Fragment implements View.OnClickListener, Logi
 
         userInfo.setOnClickListener(this);
         setting.setOnClickListener(this);
+        about.setOnClickListener(this);
         btn.setOnClickListener(this);
         exit.setOnClickListener(this);
     }
@@ -77,11 +83,11 @@ public class MineFragment extends Fragment implements View.OnClickListener, Logi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.userinfo_btn:
-                if(LOGIN_STATUS)
+                if (LOGIN_STATUS)
                     startActivity(new Intent(getContext(), UserInfoActivity.class));
-                else{
+                else {
                     Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
                     startLoginActivity();
                 }
@@ -92,16 +98,28 @@ public class MineFragment extends Fragment implements View.OnClickListener, Logi
             case R.id.setting:
 
                 break;
+            case R.id.about:
+
+                break;
             case R.id.exit_login:
-                LoginHelper.getInstance().logout(getContext(), this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("你确定要退出吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LoginHelper.getInstance().logout(getContext(), MineFragment.this);
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
                 break;
         }
     }
 
     @Override
     public void onLoginStatusChanged(boolean loginStatus) {
-        logined.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
         exit.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
+        logined.setVisibility(LOGIN_STATUS ? View.VISIBLE : View.GONE);
         unlogin.setVisibility(LOGIN_STATUS ? View.GONE : View.VISIBLE);
         if (USER != null && loginStatus) {
             Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();

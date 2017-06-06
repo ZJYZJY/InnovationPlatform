@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/navigation_blog_list"
-        android:icon="@drawable/ic_bottom_mine"
+        android:icon="@drawable/ic_bottom_blog"
         android:title="@string/title_blog_list" />
 
     <item
-        android:id="@+id/navigation_order"
-        android:icon="@drawable/ic_bottom_mine"
-        android:title="@string/title_mine" />
+        android:id="@+id/navigation_follow"
+        android:icon="@drawable/ic_bottom_follow"
+        android:title="@string/title_blog_follow" />
 
     <item
         android:id="@+id/navigation_mine"

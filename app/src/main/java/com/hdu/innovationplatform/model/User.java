@@ -18,11 +18,12 @@ public class User {
     private String password;
     private String name;
     private String sex;
-    private String school_num;
+    private int school_num;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.name = username;
     }
 
     public User(String username, String password, String userId) {
@@ -90,11 +91,11 @@ public class User {
         this.sex = sex;
     }
 
-    public String getSchool_num() {
+    public int getSchool_num() {
         return school_num;
     }
 
-    public void setSchool_num(String school_num) {
+    public void setSchool_num(int school_num) {
         this.school_num = school_num;
     }
 }

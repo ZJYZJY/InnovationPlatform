@@ -71,7 +71,9 @@
                     android:src="@drawable/setting_arrow" />
             </LinearLayout>
 
-            <LinearLayout style="@style/mid_layout">
+            <LinearLayout
+                android:id="@+id/about"
+                style="@style/mid_layout">
 
                 <TextView
                     style="@style/usertext"

@@ -66,6 +66,7 @@ public class EditBlogActivity extends AppCompatActivity {
                         res = response.body().string();
                         if(HttpUtil.stateCode(res) == SUCCESS){
                             Toast.makeText(EditBlogActivity.this, "发表成功", Toast.LENGTH_SHORT).show();
+                            finish();
                         }else{
                             Toast.makeText(EditBlogActivity.this, "发表失败", Toast.LENGTH_SHORT).show();
                         }

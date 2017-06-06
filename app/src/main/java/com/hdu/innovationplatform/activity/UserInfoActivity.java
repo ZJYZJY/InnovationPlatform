@@ -1,89 +1,81 @@
 package com.hdu.innovationplatform.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.preference.PreferenceManager;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hdu.innovationplatform.R;
-import com.hdu.innovationplatform.helper.LoginHelper;
-import com.hdu.innovationplatform.listener.LoginStatusChangedListener;
-import com.hdu.innovationplatform.utils.LoginCheck;
-import com.hdu.innovationplatform.utils.UserStatus;
-
-import static com.hdu.innovationplatform.utils.UserStatus.USER;
 
 public class UserInfoActivity extends AppCompatActivity {
 
-    private TextView editname, editage, editsex, editcartype, editcarnum;
+    private TextView realName;
+    private TextView sex;
+    private TextView schoolNumber;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_user_info);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        //给页面设置工具栏
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        editname = (TextView)findViewById(R.id.edit_name);
-        editage  =(TextView) findViewById(R.id.edit_age);
-        editsex = (TextView) findViewById(R.id.edit_sex);
-        editcartype = (TextView) findViewById(R.id.edit_cartype);
-        editcarnum = (TextView) findViewById(R.id.edit_carnum);
-
-        syncUserInfo();
-    }
-
-    private void updateData() {
-        SharedPreferences pref = getSharedPreferences("data",MODE_PRIVATE);
-        editname.setText(pref.getString("drivername",""));
-        editage.setText(pref.getString("driverage",""));
-        editsex.setText(pref.getString("driversex",""));
-        editcartype.setText(pref.getString("cartype",""));
-        editcarnum.setText(pref.getString("carnum",""));
-    }
-
-    private void syncUserInfo() {
-        editname.setText(USER.getName());
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.info_menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_edit:
-                Intent intent = new Intent(UserInfoActivity.this,EditInfoActivity.class);
-                startActivityForResult(intent,1);
-                break;
-            case android.R.id.home:
-                finish();
-                break;
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        //设置工具栏标题
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        if (collapsingToolbar != null) {
+            collapsingToolbar.setTitle("用户信息");
+            collapsingToolbar.setExpandedTitleColor(Color.WHITE);//设置收缩前Toolbar上字体的颜色
+            collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
         }
-        return super.onOptionsItemSelected(item);
+        initUserInfoView();
+    }
+
+    public void initUserInfoView(){
+        realName = (TextView) findViewById(R.id.user_real_name);
+        sex = (TextView) findViewById(R.id.user_sex);
+        schoolNumber = (TextView) findViewById(R.id.user_school_number);
+    }
+
+    private String getPreference(String key){
+        return PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext())
+                .getString(key, "");
+    }
+
+    public void onEditUserInfo(View view){
+        Intent intent = new Intent(UserInfoActivity.this, EditUserInfo.class);
+        intent.putExtra("user_real_name", getPreference("user_real_name"));
+        intent.putExtra("user_sex", getPreference("user_sex"));
+        intent.putExtra("user_school_number", getPreference("user_school_number"));
+        startActivity(intent);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case 1:
-                if (resultCode == RESULT_OK){
-                    if (data.getBooleanExtra("should_update", true)){
-                        // TODO 更新 TextView 的数据
-                        updateData();
-                    }
-                }
-                break;
-        }
+    protected void onResume() {
+        super.onResume();
+
+        realName.setText(getPreference("user_real_name"));
+        sex.setText(getPreference("user_sex"));
+        schoolNumber.setText(getPreference("user_school_number"));
     }
 }

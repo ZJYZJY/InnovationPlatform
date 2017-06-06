@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme_NoTopBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
     <style name="usertext">
         <item name="android:textSize">16dp</item>
@@ -17,38 +21,7 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-    <style name="usertextsecond">
-        <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">0</item>
-    </style>
-
-    <style name="useredit">
-        <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">4</item>
-        <item name="android:background">@drawable/background_edit</item>
-    </style>
-
-    <style name="Imagetop">
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_gravity">center</item>
-    </style>
-
     <style name="top_layout">
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:padding">1px</item>
-    </style>
-
-    <style name="one_layout">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>

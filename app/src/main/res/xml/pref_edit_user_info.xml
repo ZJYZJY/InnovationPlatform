@@ -1,0 +1,33 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="个人信息">
+
+        <EditTextPreference
+            android:capitalize="words"
+            android:inputType="text"
+            android:key="user_real_name"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:summary=""
+            android:title="@string/pref_edit_user_real_name" />
+
+        <EditTextPreference
+            android:capitalize="words"
+            android:inputType="text"
+            android:key="user_sex"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:summary=""
+            android:title="@string/pref_edit_user_sex" />
+
+        <EditTextPreference
+            android:capitalize="words"
+            android:inputType="number"
+            android:key="user_school_number"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:summary=""
+            android:title="@string/pref_edit_user_school_number" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

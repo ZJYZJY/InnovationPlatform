@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.hdu.innovationplatform.R;
 import com.hdu.innovationplatform.fragment.BlogListFragment;
+import com.hdu.innovationplatform.fragment.FollowFragment;
 import com.hdu.innovationplatform.fragment.MineFragment;
 import com.hdu.innovationplatform.adapter.ViewPagerAdapter;
 import com.hdu.innovationplatform.helper.LoginHelper;
@@ -48,9 +49,8 @@ public class MainActivity extends AppCompatActivity
 
     private void initViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
-
         adapter.addFragment(new BlogListFragment());
-        adapter.addFragment(new MineFragment());
+        adapter.addFragment(new FollowFragment());
         adapter.addFragment(new MineFragment());
 
         viewPager.setAdapter(adapter);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
                 adapter.update(0);
                 viewPager.setCurrentItem(0);
                 return true;
-            case R.id.navigation_order:
+            case R.id.navigation_follow:
                 adapter.update(1);
                 viewPager.setCurrentItem(1);
                 return true;

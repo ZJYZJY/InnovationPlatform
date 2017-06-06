@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.hdu.innovationplatform.model.Blog;
+import com.hdu.innovationplatform.model.Comment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,25 +28,20 @@ public class TransForm {
         if (res != null){
             try {
                 JSONObject json = new JSONObject(res);
-                JSONObject info = json.getJSONObject("info");
-                String real_name = info.getString("realname");
-                String sex = info.getString("sex");
-                String telephone = info.getString("telephone");
-                String driver_licence_number = info.getString("driver_licence_number");
-                String car_type = info.getString("car_type");
-                String car_number = info.getString("car_number");
+                String userId = json.getString("user_id");
+                String real_name = json.getString("name");
+                String sex = json.getString("sex");
+                int school_num = json.getInt("school_num");
 
+                USER.setUserId(userId);
                 USER.setName(real_name);
-//                USER.setDriverNumber(driver_licence_number);
-//                USER.setDriverType(car_type);
-//                USER.setCarNumber(car_number);
+                USER.setSex(sex);
+                USER.setSchool_num(school_num);
 
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
                 sp.edit().putString("user_real_name", real_name).apply();
-                sp.edit().putString("user_phone_number", USER.getUsername()).apply();
-                sp.edit().putString("user_driver_number", driver_licence_number).apply();
-                sp.edit().putString("user_driver_type", car_type).apply();
-                sp.edit().putString("user_car_number", car_number).apply();
+                sp.edit().putString("user_sex", USER.getSex()).apply();
+                sp.edit().putString("user_school_number", String.valueOf(USER.getSchool_num())).apply();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -59,12 +55,13 @@ public class TransForm {
                 JSONArray array = new JSONArray(res);
                 for(int i = 0; i < array.length(); i++){
                     JSONObject json = array.getJSONObject(i);
+                    String id = json.getString("Id");
                     String author = json.getString("Author");
                     String label = json.getString("Label");
                     String title = json.getString("Title");
                     String content = json.getString("Content");
 
-                    Blog blog = new Blog(title, label, author, content);
+                    Blog blog = new Blog(id, title, label, author, content);
                     blogs.add(blog);
                 }
             } catch (JSONException e) {
@@ -75,12 +72,37 @@ public class TransForm {
         return null;
     }
 
+    public static ArrayList<Comment> parseComment(String res){
+        if (res != null){
+            ArrayList<Comment> comments = new ArrayList<>();
+            try {
+                JSONArray array = new JSONArray(res);
+                for(int i = 0; i < array.length(); i++){
+                    JSONObject json = array.getJSONObject(i);
+                    String id = json.getString("User_Id");
+                    String username = json.getString("Username");
+                    String name = json.getString("Name");
+                    String article_id = json.getString("Article_Id");
+                    String content = json.getString("Content");
+                    String time = json.getString("updatedAt");
+
+                    Comment comment = new Comment(id, username, name, article_id, content, time);
+                    comments.add(comment);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return comments;
+        }
+        return null;
+    }
+
     /**
      * 用当前系统日期
      */
     public static String getDate() {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(date);
     }
 
