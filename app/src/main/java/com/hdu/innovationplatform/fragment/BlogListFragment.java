@@ -26,9 +26,6 @@ import com.hdu.innovationplatform.utils.HttpUtil;
 import com.hdu.innovationplatform.utils.LogUtil;
 import com.hdu.innovationplatform.utils.TransForm;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -81,10 +78,12 @@ public class BlogListFragment extends Fragment
     }
 
     public void update(){
-        blogAdapter = new BlogListAdapter(getContext(), blogs);
-        blogAdapter.setOnRecyclerItemClickListener(this);
-        blogList.setAdapter(blogAdapter);
-        blogAdapter.notifyDataSetChanged();
+//        blogAdapter = new BlogListAdapter(getContext(), blogs);
+//        blogAdapter.setOnRecyclerItemClickListener(this);
+//        blogList.setAdapter(blogAdapter);
+//        blogAdapter.notifyDataSetChanged();
+        label = tag.getSelectedItemPosition() == 0 ? "all" : mLabel[tag.getSelectedItemPosition()];
+        Refresh();
     }
 
     @Override

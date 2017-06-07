@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,18 +13,12 @@ import android.widget.Toast;
 
 import com.hdu.innovationplatform.R;
 import com.hdu.innovationplatform.model.Blog;
-import com.hdu.innovationplatform.model.Comment;
 import com.hdu.innovationplatform.utils.HttpUtil;
-import com.hdu.innovationplatform.utils.LogUtil;
-import com.hdu.innovationplatform.utils.UserStatus;
 import com.zzhoujay.richtext.RichText;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -68,7 +61,7 @@ public class BlogDisplayActivity extends AppCompatActivity implements View.OnCli
             if (Objects.equals(blog.getUser_id(), USER.getUserId())) {
                 follow.setVisibility(View.GONE);
             }
-            if (USER.getFollowed_id().contains(blog.getArticleId())) {
+            if (USER.getFollowed_id().contains(blog.getUser_id())) {
                 follow.setText("已关注");
                 follow.setChecked(true);
             }
@@ -142,7 +135,7 @@ public class BlogDisplayActivity extends AppCompatActivity implements View.OnCli
                         actionStr[0] = "取消关注";
                         action = 0;
                     }
-                    String request = "{" + "\"author_id\":\"" + blog.getArticleId() + "\"," +
+                    String request = "{" + "\"author_id\":\"" + blog.getUser_id() + "\"," +
                             "\"concern_id\":\"" + USER.getUserId() + "\"," +
                             "\"action_type\":\"" + action + "\"}";
                     RequestBody requestBody = RequestBody
